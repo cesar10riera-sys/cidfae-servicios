@@ -26,66 +26,16 @@ function guardarPeluqueriaFirebase(cedula, turno) {
 // Replace any saveUsers(), saveTurns(), saveRanchoRecords() calls with these functions
 
 
-// ------------------ Firebase Initialization ------------------
-const firebaseConfig = {
-  apiKey: "AIzaSyA_2pPscem49DjtOqzCWY_fVtZ2npM-RG4",
-  authDomain: "cidfae-servicios.firebaseapp.com",
-  databaseURL: "https://cidfae-servicios-default-rtdb.firebaseio.com/",
-  projectId: "cidfae-servicios",
-  storageBucket: "cidfae-servicios.firebasestorage.app",
-  messagingSenderId: "199012208016",
-  appId: "1:199012208016:web:a676006c41761787637715",
-  measurementId: "G-KEMRD3GB2Z"
-};
+// Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-// Helper functions to save data to Firebase instead of localStorage
-function guardarUsuarioFirebase(user) {
-  db.ref('usuarios/' + user.cedula).set(user);
-}
-function guardarReservaFirebase(cedula, reserva) {
-  db.ref('rancho/' + cedula).push().set(reserva);
-}
-function guardarPeluqueriaFirebase(cedula, turno) {
-  db.ref('peluqueria/' + cedula).push().set(turno);
-}
-
-// Replace any saveUsers(), saveTurns(), saveRanchoRecords() calls in your code with these functions
+// Configuración de tu proyecto Firebase
 
 
-// ------------------ Firebase Initialization ------------------
-const firebaseConfig = {
-  apiKey: "AIzaSyA_2pPscem49DjtOqzCWY_fVtZ2npM-RG4",
-  authDomain: "cidfae-servicios.firebaseapp.com",
-  databaseURL: "https://cidfae-servicios-default-rtdb.firebaseio.com/",
-  projectId: "cidfae-servicios",
-  storageBucket: "cidfae-servicios.firebasestorage.app",
-  messagingSenderId: "199012208016",
-  appId: "1:199012208016:web:a676006c41761787637715",
-  measurementId: "G-KEMRD3GB2Z"
-};
-
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-// Helper functions to replace localStorage
-function guardarUsuarioFirebase(user) {
-  db.ref('usuarios/' + user.cedula).set(user);
-}
-
-function guardarReservaFirebase(cedula, reserva) {
-  const nuevaReserva = db.ref('rancho/' + cedula).push();
-  nuevaReserva.set(reserva);
-}
-
-function guardarPeluqueriaFirebase(cedula, turno) {
-  const nuevaReserva = db.ref('peluqueria/' + cedula).push();
-  nuevaReserva.set(turno);
-}
-
-// Original code starts here
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 const authScreen = document.querySelector("#auth-screen");
 const appShell = document.querySelector("#app-shell");
 const authTabs = document.querySelectorAll("[data-auth-view]");
@@ -103,6 +53,7 @@ const homeNav = document.querySelector("#home-nav");
 const hairNav = document.querySelector("#hair-nav");
 const ranchoNav = document.querySelector("#rancho-nav");
 const adminNav = document.querySelector("#admin-nav");
+
 const homeView = document.querySelector("#home-view");
 const bookingView = document.querySelector("#booking-view");
 const ranchoView = document.querySelector("#rancho-view");
@@ -117,6 +68,7 @@ const firstNameInput = document.querySelector("#first-name");
 const personIdInput = document.querySelector("#person-id");
 const unitInput = document.querySelector("#unit");
 const contactInput = document.querySelector("#contact");
+
 const ticketCode = document.querySelector("#ticket-code");
 const ticketName = document.querySelector("#ticket-name");
 const ticketDate = document.querySelector("#ticket-date");
@@ -125,6 +77,7 @@ const ticketService = document.querySelector("#ticket-service");
 const ticketMessage = document.querySelector("#ticket-message");
 const userSummaryList = document.querySelector("#user-summary-list");
 const userReportButton = document.querySelector("#user-report-button");
+
 const adminSearch = document.querySelector("#admin-search");
 const adminStatusFilter = document.querySelector("#admin-status-filter");
 const turnList = document.querySelector("#turn-list");
@@ -244,6 +197,7 @@ const singleRanchoLastName = document.querySelector("#single-rancho-last-name");
 const singleRanchoFirstName = document.querySelector("#single-rancho-first-name");
 const singleRanchoCedula = document.querySelector("#single-rancho-cedula");
 const singleRanchoCreate = document.querySelector("#single-rancho-create");
+
 const slots = ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30"];
 const haircutPrice = 2.5;
 const maxDebt = 5;
@@ -1504,10 +1458,6 @@ function generateUserReport() {
     </table>
   `);
 }
-
-
-
-
 
 authTabs.forEach((tab) => {
   tab.addEventListener("click", () => showAuthPanel(tab.dataset.authView));
