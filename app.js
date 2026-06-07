@@ -10,6 +10,34 @@ const firebaseConfig = {
   measurementId: "G-KEMRD3GB2Z"
 };
 
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// Helper functions to replace localStorage with Firebase
+function guardarUsuarioFirebase(user) {
+  db.ref('usuarios/' + user.cedula).set(user);
+}
+function guardarReservaFirebase(cedula, reserva) {
+  db.ref('rancho/' + cedula).push().set(reserva);
+}
+function guardarPeluqueriaFirebase(cedula, turno) {
+  db.ref('peluqueria/' + cedula).push().set(turno);
+}
+// Replace any saveUsers(), saveTurns(), saveRanchoRecords() calls with these functions
+
+
+// ------------------ Firebase Initialization ------------------
+const firebaseConfig = {
+  apiKey: "AIzaSyA_2pPscem49DjtOqzCWY_fVtZ2npM-RG4",
+  authDomain: "cidfae-servicios.firebaseapp.com",
+  databaseURL: "https://cidfae-servicios-default-rtdb.firebaseio.com/",
+  projectId: "cidfae-servicios",
+  storageBucket: "cidfae-servicios.firebasestorage.app",
+  messagingSenderId: "199012208016",
+  appId: "1:199012208016:web:a676006c41761787637715",
+  measurementId: "G-KEMRD3GB2Z"
+};
+
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
