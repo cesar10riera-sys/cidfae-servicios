@@ -1,3 +1,18 @@
+// Configuración de Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyA_2pPscem49DjtOqzCWY_fVtZ2npM-RG4",
+  authDomain: "cidfae-servicios.firebaseapp.com",
+  databaseURL: "https://cidfae-servicios-default-rtdb.firebaseio.com/",
+  projectId: "cidfae-servicios",
+  storageBucket: "cidfae-servicios.firebasestorage.app",
+  messagingSenderId: "199012208016",
+  appId: "1:199012208016:web:a676006c41761787637715",
+  measurementId: "G-KEMRD3GB2Z"
+};
+
+// Inicializar Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 const authScreen = document.querySelector("#auth-screen");
 const appShell = document.querySelector("#app-shell");
 const authTabs = document.querySelectorAll("[data-auth-view]");
